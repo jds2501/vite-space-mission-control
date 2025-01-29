@@ -1,4 +1,3 @@
-import { render } from "react-dom";
 import MissionAction from "./MissionAction.jsx";
 import MissionCard from "./MissionCard.jsx";
 import "./MissionControl.css";
@@ -24,7 +23,7 @@ function renderDisplayedMissions() {
     }
 }
 
-export function updateDisplayedMissions(displayStatus) {
+function updateDisplayedMissions(displayStatus) {
     currentDisplayStatus = displayStatus;
     renderDisplayedMissions();
 }
@@ -33,7 +32,7 @@ function MissionControl({ missions }) {
     return (
         <>
             <h1>Space Mission Control</h1>
-            <MissionFilter />
+            <MissionFilter filterFunc={updateDisplayedMissions} />
             <div>
                 {missions.map((mission) => {
                     return <div key={mission.id} id={"display-" + mission.id} className="MissionControl-Mission">

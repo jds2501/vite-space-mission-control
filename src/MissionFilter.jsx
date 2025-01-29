@@ -1,21 +1,15 @@
-import { updateDisplayedMissions } from "./MissionControl";
 import "./MissionFilter.css";
 
-function MissionFilter() {
+function MissionFilter({ filterFunc }) {
+    const MISSION_FILTERS = ["All", "Planned", "Active", "Completed"];
+
     return (
         <div className="MissionFilter">
-            <button onClick={() => {
-                updateDisplayedMissions("All");
-            }}>All</button>
-            <button onClick={() => {
-                updateDisplayedMissions("Planned");
-            }}>Planned</button>
-            <button onClick={() => {
-                updateDisplayedMissions("Active");
-            }}>Active</button>
-            <button onClick={() => {
-                updateDisplayedMissions("Completed");
-            }}>Completed</button>
+            {MISSION_FILTERS.map((missionFilter) => {
+                return <button onClick={() => {
+                    filterFunc(missionFilter);
+                }}>{missionFilter}</button>
+            })}
         </div>
     );
 }
