@@ -4,16 +4,16 @@ import "./MissionControl.css";
 import MissionFilter from "./MissionFilter.jsx";
 import { useState } from 'react';
 
-function MissionControl({ missions }) {
+function MissionControl({ initialMissions }) {
     const [statusFilter, setStatusFilter] = useState("All");
-    const [currentMissions, setCurrentMissions] = useState(missions);
+    const [currentMissions, setCurrentMissions] = useState(initialMissions);
 
     function changeStatusFilter(newStatus) {
         setStatusFilter(newStatus);
     }
 
     function changeMissionStatus(id, newStatus) {
-        setCurrentMissions(missions.map((mission) => {
+        setCurrentMissions(currentMissions.map((mission) => {
             if (mission.id === id) {
                 mission.status = newStatus;
             }

@@ -17,7 +17,7 @@ function App() {
 
 	return (
 		<>
-			<MissionControl missions={INITIAL_MISSIONS} />
+			<MissionControl initialMissions={INITIAL_MISSIONS} />
 		</>
 	);
 }
