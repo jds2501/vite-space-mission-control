@@ -1,21 +1,32 @@
+import { render } from "react-dom";
 import MissionAction from "./MissionAction.jsx";
 import MissionCard from "./MissionCard.jsx";
 import "./MissionControl.css";
 import MissionFilter from "./MissionFilter.jsx";
 
-export function updateDisplayedMissions(displayStatus) {
+let currentDisplayStatus = "All";
+
+function renderDisplayedMissions() {
     const statuses = document.querySelectorAll(".status");
 
     for (const status of statuses) {
         const displayId = document.getElementById("display-" + status.id);
-        console.log(displayId);
 
-        if (displayStatus === "All" || displayStatus === status.textContent) {
-            console.log("SHOW: ", status.textContent);
-        } else {
-            console.log("NO RENDER: ", status.textContent);
+        if (currentDisplayStatus === "All" || currentDisplayStatus === status.textContent) {
+
+            if (displayId.classList.contains("hidden")) {
+                displayId.classList.remove("hidden");
+            }
+
+        } else if (!displayId.classList.contains("hidden")) {
+            displayId.classList.add("hidden");
         }
     }
+}
+
+export function updateDisplayedMissions(displayStatus) {
+    currentDisplayStatus = displayStatus;
+    renderDisplayedMissions();
 }
 
 function MissionControl({ missions }) {
@@ -35,9 +46,11 @@ function MissionControl({ missions }) {
                         <MissionAction launch={() => {
                             const status = document.getElementById(mission.id);
                             status.textContent = "Active";
+                            renderDisplayedMissions();
                         }} complete={() => {
                             const status = document.getElementById(mission.id);
                             status.textContent = "Completed";
+                            renderDisplayedMissions();
                         }} />
                     </div>
                 })}
