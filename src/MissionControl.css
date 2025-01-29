@@ -7,7 +7,3 @@
     display: flex;
     justify-content: space-between;
 }
-
-.MissionControl-Mission.hidden {
-    display: none;
-}
