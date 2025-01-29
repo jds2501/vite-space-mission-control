@@ -1,11 +1,13 @@
 import MissionAction from "./MissionAction.jsx";
 import MissionCard from "./MissionCard.jsx";
 import "./MissionControl.css";
+import MissionFilter from "./MissionFilter.jsx";
 
 function MissionControl({ missions }) {
     return (
         <>
             <h1>Space Mission Control</h1>
+            <MissionFilter />
             <div>
                 {missions.map((mission) => {
                     const status = document.getElementById("status-" + mission.id);
