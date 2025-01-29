@@ -2,39 +2,36 @@ import MissionAction from "./MissionAction.jsx";
 import MissionCard from "./MissionCard.jsx";
 import "./MissionControl.css";
 import MissionFilter from "./MissionFilter.jsx";
-
-let currentDisplayStatus = "All";
-
-function renderDisplayedMissions() {
-    const statuses = document.querySelectorAll(".status");
-
-    for (const status of statuses) {
-        const displayId = document.getElementById("display-" + status.id);
-
-        if (currentDisplayStatus === "All" || currentDisplayStatus === status.textContent) {
-
-            if (displayId.classList.contains("hidden")) {
-                displayId.classList.remove("hidden");
-            }
-
-        } else if (!displayId.classList.contains("hidden")) {
-            displayId.classList.add("hidden");
-        }
-    }
-}
-
-function updateDisplayedMissions(displayStatus) {
-    currentDisplayStatus = displayStatus;
-    renderDisplayedMissions();
-}
+import { useState } from 'react';
 
 function MissionControl({ missions }) {
+    const [statusFilter, setStatusFilter] = useState("All");
+    const [currentMissions, setCurrentMissions] = useState(missions);
+
+    function changeStatusFilter(newStatus) {
+        setStatusFilter(newStatus);
+    }
+
+    function changeMissionStatus(id, newStatus) {
+        setCurrentMissions(missions.map((mission) => {
+            if (mission.id === id) {
+                mission.status = newStatus
+            }
+
+            return mission;
+        }));
+    }
+
+    const displayedMissions = currentMissions.filter((mission) => {
+        return statusFilter === "All" || mission.status === statusFilter;
+    });
+
     return (
         <>
             <h1>Space Mission Control</h1>
-            <MissionFilter filterFunc={updateDisplayedMissions} />
+            <MissionFilter filterFunc={changeStatusFilter} />
             <div>
-                {missions.map((mission) => {
+                {displayedMissions.map((mission) => {
                     return <div key={mission.id} id={"display-" + mission.id} className="MissionControl-Mission">
                         <MissionCard
                             id={mission.id}
@@ -43,13 +40,9 @@ function MissionControl({ missions }) {
                             crew={mission.crew}
                         />
                         <MissionAction launch={() => {
-                            const status = document.getElementById(mission.id);
-                            status.textContent = "Active";
-                            renderDisplayedMissions();
+                            changeMissionStatus(mission.id, "Active");
                         }} complete={() => {
-                            const status = document.getElementById(mission.id);
-                            status.textContent = "Completed";
-                            renderDisplayedMissions();
+                            changeMissionStatus(mission.id, "Completed");
                         }} />
                     </div>
                 })}

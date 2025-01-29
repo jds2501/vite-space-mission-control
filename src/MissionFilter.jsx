@@ -6,7 +6,7 @@ function MissionFilter({ filterFunc }) {
     return (
         <div className="MissionFilter">
             {MISSION_FILTERS.map((missionFilter) => {
-                return <button onClick={() => {
+                return <button key={missionFilter} onClick={() => {
                     filterFunc(missionFilter);
                 }}>{missionFilter}</button>
             })}
