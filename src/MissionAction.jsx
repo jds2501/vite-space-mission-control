@@ -1,13 +1,13 @@
 import "./MissionAction.css";
 
-function MissionAction({ }) {
+function MissionAction({ launch, complete }) {
     return (
         <div className="MissionAction">
             <div>
-                <button>Launch</button>
+                <button onClick={launch}>Launch</button>
             </div>
             <div>
-                <button>Complete</button>
+                <button onClick={complete}>Complete</button>
             </div>
         </div>
     );

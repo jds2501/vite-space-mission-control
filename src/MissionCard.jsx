@@ -1,8 +1,8 @@
-function MissionCard({ name, status, crew }) {
+function MissionCard({ id, name, status, crew }) {
     return (
         <div>
             <h3>{name}</h3>
-            <p>Status: {status}</p>
+            <p>Status: <span id={"status-" + id}>{status}</span></p>
             <p>Crew: {crew.join(", ")}</p>
         </div>
     );
