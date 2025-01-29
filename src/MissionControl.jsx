@@ -15,7 +15,7 @@ function MissionControl({ missions }) {
     function changeMissionStatus(id, newStatus) {
         setCurrentMissions(missions.map((mission) => {
             if (mission.id === id) {
-                mission.status = newStatus
+                mission.status = newStatus;
             }
 
             return mission;
